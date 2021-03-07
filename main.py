@@ -10,6 +10,7 @@ def main():
     parser = argparse.ArgumentParser(description='Lane detection script')
     parser.add_argument('path', type=str, help='Images directory')
     parser.add_argument('factor', type=float, help='Reduce image factor')
+    parser.add_argument('write', type=bool, default=False, help='Write images')
     parser.add_argument('--type', type=str, default='jpeg', help='Image type')
     args = parser.parse_args()
 
@@ -32,7 +33,8 @@ def main():
         h, w = img.shape[:2]
         img_resize = cv2.resize(
             img, (int(w * args.factor), int(h * args.factor)))
-        cv2.imwrite(file, img_resize)
+        if args.write:
+            cv2.imwrite(file, img_resize)
 
 
 if __name__ == '__main__':
